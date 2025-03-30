@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tic Tac Toe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+
+        .game-container {
+            text-align: center;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin: 20px auto;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #000;
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cell.taken {
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .reset {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .reset:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Tic Tac Toe</h1>
+        <div class="board" id="board"></div>
+        <div class="message" id="message">Player X's turn</div>
+        <button class="reset" id="reset">Restart Game</button>
+    </div>
+
+    <script>
+        const board = document.getElementById('board');
+        const message = document.getElementById('message');
+        const resetButton = document.getElementById('reset');
+
+        let currentPlayer = 'X';
+        let gameActive = true;
+        let gameState = Array(9).fill(null);
+
+        const winningConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        function createBoard() {
+            board.innerHTML = '';
+            gameState.forEach((cell, index) => {
+                const cellElement = document.createElement('div');
+                cellElement.classList.add('cell');
+                cellElement.dataset.index = index;
+                cellElement.addEventListener('click', handleCellClick);
+                board.appendChild(cellElement);
+            });
+        }
+
+        function handleCellClick(event) {
+            const cell = event.target;
+            const cellIndex = cell.dataset.index;
+
+            if (gameState[cellIndex] || !gameActive) return;
+
+            gameState[cellIndex] = currentPlayer;
+            cell.textContent = currentPlayer;
+            cell.classList.add('taken');
+
+            if (checkWin()) {
+                gameActive = false;
+                message.textContent = `Player ${currentPlayer} wins!`;
+                return;
+            }
+
+            if (gameState.every(cell => cell)) {
+                gameActive = false;
+                message.textContent = 'It"s a draw!';
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            message.textContent = `Player ${currentPlayer}'s turn`;
+        }
+
+        function checkWin() {
+            return winningConditions.some(condition => {
+                const [a, b, c] = condition;
+                return gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c];
+            });
+        }
+
+        resetButton.addEventListener('click', resetGame);
+
+        function resetGame() {
+            currentPlayer = 'X';
+            gameActive = true;
+            gameState = Array(9).fill(null);
+            message.textContent = `Player ${currentPlayer}'s turn`;
+            createBoard();
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK1</title>
+    <style>
+        
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .navbar:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        
+        .main {
+            height: 100vh;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        .main h1 {
+            font-size: 3rem;
+            animation: slideInDown 1.5s ease-in-out;
+        }
+
+        .main p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .main .btn {
+            text-decoration: none;
+            background: white;
+            color: #333;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s, color 0.3s, transform 0.3s;
+            animation: bounceIn 2s;
+        }
+
+        .main .btn:hover {
+            background: #007bff;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            0%, 100% {
+                transform: scale(0.9);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        
+        section {
+            padding: 60px 20px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: #f4f4f4;
+        }
+
+        section:nth-child(odd) {
+            background: #fff;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        section p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: slideInDown 1s ease-in-out;
+        }
+
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        
+        @media (max-width: 768px) {
+            .main h1 {
+                font-size: 2.5rem;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar li {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="main">
+            <h1>THIS IS  A RESPONSIVE PAGE</h1>
+            <p>Explore dynamic and responsive design with animations.</p>
+            <a href="#contact" class="btn">Get Started</a>
+        </div>
+    </header>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We specialize in creating interactive and responsive designs that enhance user experiences.</p>
+    </section>
+    <section id="services">
+        <h2>Our Services</h2>
+        <p>From web development to design, we offer a variety of services tailored to your needs.</p>
+    </section>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Have questions? Feel free to reach out, and we'll be happy to assist you!</p>
+    </section>
+    <!-- task -->
+</body>
+</html>
+    

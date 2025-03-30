@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch with Laps & Dynamic Background</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: background-color 10s;
+    }
+    .stopwatch {
+      text-align: center;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      width: 350px;
+    }
+    .time {
+      font-size: 48px;
+      margin: 20px 0;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .start {
+      background: #4caf50;
+      color: white;
+    }
+    .stop {
+      background: #f44336;
+      color: white;
+    }
+    .reset {
+      background: #2196f3;
+      color: white;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    .laps {
+      margin-top: 20px;
+      text-align: left;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .laps ul {
+      padding: 0;
+      list-style: none;
+    }
+    .laps li {
+      margin: 5px 0;
+      padding: 5px;
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="stopwatch">
+    <div class="time">00:00:00</div>
+    <div class="buttons">
+      <button class="start">Start</button>
+      <button class="stop">Stop</button>
+      <button class="reset">Reset</button>
+    </div>
+    <div class="laps">
+      <h3>Laps</h3>
+      <ul></ul>
+    </div>
+  </div>
+
+  <script>
+    const timeDisplay = document.querySelector('.time');
+    const startButton = document.querySelector('.start');
+    const stopButton = document.querySelector('.stop');
+    const resetButton = document.querySelector('.reset');
+    const lapsContainer = document.querySelector('.laps ul');
+    let elapsedTime = 0;
+    let timerInterval;
+
+    function formatTime(ms) {
+      const totalSeconds = Math.floor(ms / 1000);
+      const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+      const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+      const seconds = String(totalSeconds % 60).padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+    }
+
+    function updateTime() {
+      timeDisplay.textContent = formatTime(elapsedTime);
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+      const startTime = Date.now() - elapsedTime;
+      timerInterval = setInterval(() => {
+        elapsedTime = Date.now() - startTime;
+        updateTime();
+      }, 100);
+    }
+
+    function stopTimer() {
+      if (!timerInterval) return;
+      clearInterval(timerInterval);
+      timerInterval = null;
+
+      // Record the lap
+      const lapTime = formatTime(elapsedTime);
+      const lapElement = document.createElement('li');
+      lapElement.textContent = `Lap: ${lapTime}`;
+      lapsContainer.appendChild(lapElement);
+    }
+
+    function resetTimer() {
+      stopTimer();
+      elapsedTime = 0;
+      updateTime();
+      lapsContainer.innerHTML = ''; // Clear laps
+    }
+
+    startButton.addEventListener('click', startTimer);
+    stopButton.addEventListener('click', stopTimer);
+    resetButton.addEventListener('click', resetTimer);
+
+    updateTime();
+
+    // Dynamic Background Color
+    setInterval(() => {
+      const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+      document.body.style.backgroundColor = randomColor;
+    }, 1000);
+  </script>
+</body>
+</html>
